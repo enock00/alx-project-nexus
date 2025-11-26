@@ -1,30 +1,56 @@
+"use client";
+
+import { useCart } from "@/context/CartContext";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 export default function CheckoutPage() {
+  const { cart } = useCart();
+  const router = useRouter();
+
+  const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+
+  if (cart.length === 0)
+    return <p className="text-center mt-20">Cart empty</p>;
+
+  
+  const goToPayment = () => {
+    router.push(`/payment?amount=${total}`);
+  };
+
   return (
-    <div className="p-6 max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Checkout</h1>
+    <div className="max-w-xl mx-auto bg-white p-6 rounded shadow mt-10">
+      <h1 className="text-2xl font-bold mb-4">Checkout</h1>
 
-      <form className="space-y-4">
-        <input
-          type="text"
-          placeholder="Full Name"
-          className="w-full p-3 border rounded"
-        />
-        <input
-          type="text"
-          placeholder="Address"
-          className="w-full p-3 border rounded"
-        />
-        <input
-          type="text"
-          placeholder="Phone Number"
-          className="w-full p-3 border rounded"
-        />
+      <button
+        onClick={goToPayment}
+        className="bg-blue-600 text-white px-4 py-2 rounded mb-4"
+      >
+        Proceed to Payment
+      </button>
 
-        <button className="bg-blue-600 text-white w-full p-3 rounded-lg shadow
-                           hover:bg-blue-700 transition">
+      {cart.map((c) => (
+        <div key={c.id} className="flex justify-between py-2">
+          <div>
+            {c.title} x {c.quantity}
+          </div>
+          <div>Ksh {(c.price * c.quantity).toFixed(2)}</div>
+        </div>
+      ))}
+
+      <div className="text-center mt-4">
+        <div className="text-xl font-bold">
+          Total: Ksh {total.toFixed(2)}
+        </div>
+
+        <button
+          onClick={goToPayment}
+          className="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded"
+        >
           Place Order
         </button>
-      </form>
+      </div>
     </div>
   );
 }

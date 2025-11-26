@@ -1,28 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import { useCart, CartItem } from "@/context/CartContext";
+import Link from "next/link";
+import { useCart } from "@/context/CartContext";
 
-type Props = {
-  product: CartItem;
-};
-
-export default function ProductCard({ product }: Props) {
+export default function ProductCard({ product }: { product: any }) {
   const { addToCart } = useCart();
 
   return (
-    <div className="bg-white rounded-lg shadow hover:shadow-lg transition p-4 flex flex-col items-center">
-      <Image
-        src={product.image}
-        alt={product.name}
-        width={250}
-        height={250}
-        className="rounded-lg"
-      />
-      <h2 className="mt-3 text-lg font-semibold">{product.name}</h2>
-      <p className="text-blue-600 font-bold">Ksh{product.price}</p>
+    <div className="bg-white rounded-lg shadow p-4 flex flex-col">
+      <Link href={`/products/${product.id}`} className="flex-1">
+        <div className="w-full h-36 flex items-center justify-center">
+          <Image src={product.image} alt={product.title} width={120} height={300} className="object-contain" />
+        </div>
+        <h3 className="mt-3 font-medium">{product.title}</h3>
+        <p className="text-blue-600 font-bold">Ksh {product.price}</p>
+      </Link>
+
       <button
-        onClick={() => addToCart(product)}
+        onClick={() => addToCart({ id: product.id, title: product.title, price: product.price, image: product.image, quantity: 1 })}
         className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
       >
         Add to Cart
@@ -30,4 +26,5 @@ export default function ProductCard({ product }: Props) {
     </div>
   );
 }
+
 

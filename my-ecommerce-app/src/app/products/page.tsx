@@ -1,17 +1,21 @@
 import ProductCard from "@/components/ProductCard";
-import { products } from "@/data/products";
 
-export default function ProductsPage() {
+async function getElectronics() {
+  const res = await fetch("https://fakestoreapi.com/products/category/electronics", { cache: "no-store" });
+  if (!res.ok) return [];
+  return res.json();
+}
+
+export default async function ProductsPage() {
+  const products = await getElectronics();
+
   return (
-    <main className="px-6 py-10">
-      <h1 className="text-3xl font-bold mb-6">All Products</h1>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {products.map((p) => (
-          <ProductCard key={p.id} product={p} />
-        ))}
+    <div>
+      <h1 className="text-3xl font-bold mb-6">Electronics</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {products.map((p: any) => <ProductCard key={p.id} product={p} />)}
       </div>
-    </main>
+    </div>
   );
 }
 
