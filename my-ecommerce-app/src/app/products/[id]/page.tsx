@@ -18,7 +18,7 @@ export default function ProductDetailsPage() {
     let cancelled = false;
     async function load() {
       setLoading(true);
-      const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+      const res = await fetch(`https://dummyjson.com/products/${id}`);
       const data = await res.json();
       if (!cancelled) setProduct(data);
       setLoading(false);
@@ -58,8 +58,6 @@ export default function ProductDetailsPage() {
     </div>
   );
 }
-
-
 
 
 

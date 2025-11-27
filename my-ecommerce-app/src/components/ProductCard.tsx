@@ -11,7 +11,7 @@ export default function ProductCard({ product }: { product: any }) {
     <div className="bg-white rounded-lg shadow p-4 flex flex-col">
       <Link href={`/products/${product.id}`} className="flex-1">
         <div className="w-full h-36 flex items-center justify-center">
-          <Image src={product.image} alt={product.title} width={120} height={300} className="object-contain" />
+          <Image src={product.image} alt={product.title} width={100} height={300} className="object-contain" />
         </div>
         <h3 className="mt-3 font-medium">{product.title}</h3>
         <p className="text-blue-600 font-bold">Ksh {product.price}</p>

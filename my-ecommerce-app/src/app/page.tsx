@@ -10,7 +10,7 @@ export default function HomePage() {
 
   useEffect(() => {
     async function fetchElectronics() {
-      const res = await fetch("https://fakestoreapi.com/products/category/electronics");
+      const res = await fetch("https://fakestoreapi.com");
       const data = await res.json();
       setProducts(data);
     }
@@ -21,7 +21,7 @@ export default function HomePage() {
     <div className="space-y-20" >
 
       {/* HERO */}
-      <section className="flex flex-col md:flex-row items-center bg-white shadow rounded-3xl p-12">
+      <section className="flex flex-col md:flex-row items-center bg-white shadow rounded-2xl p-10">
         <div className="flex-1 space-y-4">
           <h1 className="text-4xl font-bold text-gray-900">
             Discover the Best Electronics
